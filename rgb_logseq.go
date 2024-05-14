@@ -8,8 +8,7 @@ import (
 	"github.com/charmbracelet/log"
 	"github.com/joho/godotenv"
 
-	"github.com/brianwisti/rgb_logseq/page"
-	"github.com/brianwisti/rgb_logseq/reports"
+	"github.com/brianwisti/rgb_logseq/graph"
 )
 
 func main() {
@@ -26,13 +25,13 @@ func main() {
 		log.Fatal(err)
 	}
 
-	pages := []*page.Page{}
+	pages := []*graph.Page{}
 
 	for _, sourceFile := range sourcePaths {
-		p := page.NewPage(sourceFile)
+		p := graph.NewPage(sourceFile)
 		pages = append(pages, p)
 	}
 
-	pt := reports.NewPageTally(pages)
+	pt := graph.NewPageTally(pages)
 	fmt.Println(pt.Render())
 }

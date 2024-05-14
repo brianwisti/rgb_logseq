@@ -1,4 +1,4 @@
-package reports
+package graph
 
 import (
 	"os"
@@ -7,8 +7,6 @@ import (
 	"github.com/charmbracelet/lipgloss"
 	"github.com/charmbracelet/lipgloss/table"
 	"github.com/charmbracelet/log"
-
-	"github.com/brianwisti/rgb_logseq/page"
 )
 
 type PageTally struct {
@@ -18,7 +16,7 @@ type PageTally struct {
 }
 
 // NewPageTally creates a new PageTally struct.
-func NewPageTally(pages []*page.Page) *PageTally {
+func NewPageTally(pages []*Page) *PageTally {
 	publicPageCount := 0
 	for _, page := range pages {
 		if page.IsPublic() {
