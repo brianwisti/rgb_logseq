@@ -66,3 +66,65 @@ func TestInvalidLine(t *testing.T) {
 		}
 	}
 }
+
+func TestAsString(t *testing.T) {
+	tests := []struct {
+		input string
+		want  string
+	}{
+		{"title:: Test Page", "Test Page"},
+		{"public:: true", "true"},
+	}
+
+	for _, tt := range tests {
+		p, _ := NewProp(tt.input)
+		got := p.AsString()
+
+		if got != tt.want {
+			t.Errorf("Prop.AsString() = %q; want %q", got, tt.want)
+		}
+	}
+}
+
+func TestAsBoolean(t *testing.T) {
+	tests := []struct {
+		input string
+		want  bool
+	}{
+		{"true", true},
+		{"false", false},
+	}
+
+	for _, tt := range tests {
+		p := Prop{value: tt.input}
+		got, err := p.AsBoolean()
+
+		if err != nil {
+			t.Errorf("Prop.AsBoolean() error = %v; want nil", err)
+		}
+
+		if got != tt.want {
+			t.Errorf("Prop.AsBoolean() = %t; want %t", got, tt.want)
+		}
+	}
+}
+
+func TestErrPropNotBoolean(t *testing.T) {
+	tests := []string{
+		"invalid",
+		"true ",
+		" false",
+	}
+
+	for _, tt := range tests {
+		p := Prop{value: tt}
+		got, err := p.AsBoolean()
+		if got {
+			t.Errorf("Prop.AsBoolean() = %t; want false", got)
+		}
+
+		if err != ErrPropNotBoolean {
+			t.Errorf("Prop.AsBoolean() error = %v; want ErrPropNotBoolean", err)
+		}
+	}
+}
