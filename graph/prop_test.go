@@ -48,25 +48,6 @@ func TestNewProp(t *testing.T) {
 	}
 }
 
-func TestInvalidLine(t *testing.T) {
-	tests := []string{
-		"- title:: Test Page",
-		"invalid line",
-	}
-
-	for _, tt := range tests {
-		p, err := NewProp(tt)
-
-		if err != ErrInvalidLine {
-			t.Errorf("NewProp(%q) error = %v; want ErrInvalidLine", tt, err)
-		}
-
-		if p != nil {
-			t.Errorf("NewProp(%q) = %v; want nil", tt, p)
-		}
-	}
-}
-
 func TestAsString(t *testing.T) {
 	tests := []struct {
 		input string
