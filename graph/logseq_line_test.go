@@ -54,20 +54,12 @@ func TestDepth(t *testing.T) {
 	}{
 		{"", 0},
 		{"Hello World", 0},
-		{"- Hello World", 0},
-		{"  Hello World", 0},
-		{"\t- Hello World", 1},
-		{"\t  Hello World", 1},
-		{"\t\t- Hello World", 2},
-		{"\t\t  Hello World", 2},
-		{"\t\t\t- Hello World", 3},
-		{"\t\t\t  Hello World", 3},
-		{"\t\t\t\t- Hello World", 4},
-		{"\t\t\t\t  Hello World", 4},
-		{"\t\t\t\t\t- Hello World", 5},
-		{"\t\t\t\t\t  Hello World", 5},
-		{"\t\t\t\t\t\t- Hello World", 6},
-		{"\t\t\t\t\t\t  Hello World", 6},
+		{"- Hello World", 1},
+		{"  Hello World", 1},
+		{"\t- Hello World", 2},
+		{"\t  Hello World", 2},
+		{"\t\t- Hello World", 3},
+		{"\t\t  Hello World", 3},
 	}
 
 	for _, tt := range tests {

@@ -3,6 +3,8 @@ package graph
 import (
 	"errors"
 	"strings"
+
+	"github.com/charmbracelet/log"
 )
 
 const (
@@ -55,8 +57,13 @@ func (l *LogseqLine) adjust() error {
 		return ErrInvalidLogseqLine
 	}
 
-	l.Adjusted = strings.TrimPrefix(l.Adjusted, BlockPrefix)
-	l.Adjusted = strings.TrimPrefix(l.Adjusted, BlockContentPrefix)
+	if hasBlockMarker {
+		log.Debug("Block marker found", "line", l.Adjusted, "depth", l.Depth)
+		l.Depth++
+		l.Adjusted = strings.TrimPrefix(l.Adjusted, BlockPrefix)
+		l.Adjusted = strings.TrimPrefix(l.Adjusted, BlockContentPrefix)
+	}
+
 	l.IsProp = strings.Contains(l.Adjusted, PropIndicator)
 
 	return nil
